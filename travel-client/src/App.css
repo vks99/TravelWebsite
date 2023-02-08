@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.me-auto {
+    margin-left: 15px !important ;/* if the nav is on the right */ 
+    margin-right: 15px;
+ }
