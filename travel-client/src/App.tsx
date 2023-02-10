@@ -18,8 +18,9 @@ import Header from './components/header';
 
 function App() {
   return(
-    <div>
+    <div className='main-heading'>
         <Navigation />
+     <div className='main-content'>
         <Routes>
             <Route path='/Signup' element={<Signup />}/>
             <Route path='/Login' element={<Login />}/>
@@ -31,8 +32,13 @@ function App() {
             <Route path='/Contactus' element={<Contactus />}/>
             <Route path='/Payment' element={<Payment />}/>
         </Routes>
+        </div>
+        <div className='footer'>
         <Footer />
+        </div>
+            
     </div>
+        
 );
 }
 

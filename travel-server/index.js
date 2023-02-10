@@ -29,5 +29,11 @@ app.set('view engine', 'hbs');
 // starting the port
 mongoose.connect(database.url, { useNewUrlParser: true });
 
+
+app.get('/home'=()=>{
+
+	
+
+});
 app.listen(process.env.PORT);
 console.log("App Listening to Port : "+process.env.PORT)

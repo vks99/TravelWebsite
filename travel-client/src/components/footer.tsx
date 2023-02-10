@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 const Footer=()=>{
     return( 
-            <div className='main-footer' >
-            <div className='container-fluid bg-secondary'>
+            <div className='main-footer d-flex flex-column h-100' >
+            <div className='container-fluid flex-grow-1'>
                 <div className='row'>
                   <div className='col'>
                       <h2>Student 1</h2>
