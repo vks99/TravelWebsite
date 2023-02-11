@@ -81,3 +81,13 @@
   text-align: center;
   margin-top: auto;
 }
+
+.bg-img-top{
+  width: 100%;
+  height: 500px;
+}
+.card-img-right {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
