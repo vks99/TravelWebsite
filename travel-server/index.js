@@ -1,13 +1,16 @@
 // Importing all required modules
-const url = require('url');
 var express  = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
-const exphbs = require('express-handlebars');
+const cors = require('cors');
 
-var travelSchema = require('./models/schema');
-var database = require('./config/database');
+// Setting cors and mongoose warning
+app.use(cors());
+mongoose.set('strictQuery', false);
+
+// importing required schemas
+var contactus = require('./models/contactusSchema');
 
 // assigning port no
 var port = process.env.PORT || 8000;
@@ -15,25 +18,19 @@ var port = process.env.PORT || 8000;
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Intializing template engine
-app.engine('.hbs', exphbs.engine({ 
-	extname: '.hbs',runtimeOptions:{
-		allowProtoPropertiesByDefault:true,
-		allowProtoMethodsByDefault:true
-	}
-}));
-app.set('view engine', 'hbs');
+// Connection to MongoDB Database
+mongoose.connect("mongodb+srv://vikasguptha99:Vik240398@cluster0.0rsfijt.mongodb.net/TravelCationTest", { useNewUrlParser: true });
+
+// routes
+app.post("/contactus",async(req, res)=>{
+
+	const formData = req.body;
+	console.log(formData);
+	await contactus.create(formData);
+	await res.send("true");
+});
 
 // starting the port
-mongoose.connect(database.url, { useNewUrlParser: true });
-
-
-app.get('/home'=()=>{
-
-	
-
-});
-app.listen(process.env.PORT);
-console.log("App Listening to Port : "+process.env.PORT)
+app.listen(port);
+console.log("App Listening to Port : "+port)
