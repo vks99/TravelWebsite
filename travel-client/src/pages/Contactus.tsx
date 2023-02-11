@@ -48,8 +48,9 @@ const Contactus=()=>{
     };
 
     return(
+        <div className='contact-form'>
         <div className="container-fluid p-5">
-            <div className="contact-form shadow rounded mt-5">
+            <div className="contact-form shadow rounded mt-5 contact-form">
                 <div className="row">
                     <div className="col-md-4 form-left-side p-5  text-white">
                         <h2 className='mb-4'>Let's Get in touch</h2>
@@ -102,6 +103,7 @@ const Contactus=()=>{
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }
