@@ -35,7 +35,7 @@ app.post("/contactus",async(req, res)=>{
 	await res.send("true");
 });
 
-<<<<<<< HEAD
+
 //route to post the feedback form data
 app.post("/home", async(req, res) => {
 	console.log(req.body)
@@ -43,7 +43,7 @@ app.post("/home", async(req, res) => {
 	await feedback.create(feedbackdata);
 	await res.send("true");
 }); 
-=======
+
 app.post("/BlogForm", async(req,res)=>{
 
 	const blogData = req.body;
@@ -131,14 +131,14 @@ app.post("/login", async (req, res) => {
   
 		// save user token
 		res.cookie('auth',token);
-		res.redirect('/welcome');
+		res.redirect('/home');
 	  }
 	  res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
 	}
   });
->>>>>>> a4fbea357c4b90de394b9705e2af43d9f82325a0
+
 
 // starting the port
 app.listen(port);
