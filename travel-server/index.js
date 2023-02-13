@@ -31,6 +31,89 @@ app.post("/contactus",async(req, res)=>{
 	await res.send("true");
 });
 
+app.post("/register", async (req, res) => {
+	try {
+	  // Get user input
+	  let first_name = req.body.first_name;
+	  let last_name = req.body.last_name;
+	  let email = req.body.email;
+	  let password = req.body.password;
+
+  
+	  // Validate user input
+	  if (!(email && password && first_name && last_name)) {
+		console.log(email);
+		console.log(req.body.email);
+		res.status(400).send("All input is required");
+
+	  }
+  
+
+	  const oldUser = await User.findOne({ email });
+  
+	  if (oldUser) {
+		return res.status(409).send("User Already Exist. Please Login");
+	  }
+  
+	  //Encrypt user password
+	  encryptedPassword = await bcrypt.hash(password, 10);
+  
+	  // Create user in our database
+	  const user = await User.create({
+		first_name,
+		last_name,
+		email: email.toLowerCase(), // sanitize: convert email to lowercase
+		password: encryptedPassword,
+	  });
+  
+	  // Create token
+	  const token = jwt.sign(
+		{ user_id: user._id, email },
+		process.env.TOKEN_KEY,
+		{
+		  expiresIn: "2h",
+		}
+	  );
+	  // save user token
+	  res.cookie('auth',token);
+	  res.redirect('/welcome');
+	} catch (err) {
+	  console.log(err);
+	}
+  });
+  
+app.post("/login", async (req, res) => {
+	try {
+	  // Get user input
+	  let email = req.body.email;
+	  let password = req.body.password;
+	  // Validate user input
+	  if (!(email && password)) {
+		res.status(400).send("All input is required");
+	  }
+	  // Validate if user exist in our database
+	  const user = await User.findOne({ email });
+  
+	  if (user && (await bcrypt.compare(password, user.password))) {
+		// Create token
+		const token = jwt.sign(
+		  { user_id: user._id, email },
+		  process.env.TOKEN_KEY,
+		  {
+			expiresIn: "2h",
+		  }
+		);
+  
+		// save user token
+		res.cookie('auth',token);
+		res.redirect('/welcome');
+	  }
+	  res.status(400).send("Invalid Credentials");
+	} catch (err) {
+	  console.log(err);
+	}
+  });
+
 // starting the port
 app.listen(port);
 console.log("App Listening to Port : "+port)
