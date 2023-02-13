@@ -48,6 +48,7 @@ const Signup=()=>{
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     return(
+
 		<div className="col-md-8 form-right-side p-5 ">
 		<h1 className='mb-4'>Sign UP</h1>
 		<form onSubmit={onSubmit} className='row g-4'>
@@ -85,6 +86,7 @@ const Signup=()=>{
 		</div>
     
     )   
+
 }
 
 export default Signup;
