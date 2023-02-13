@@ -11,6 +11,7 @@ mongoose.set('strictQuery', false);
 
 // importing required schemas
 var contactus = require('./models/contactusSchema');
+var feedback = require('./models/feedbackSchema');
 
 // assigning port no
 var port = process.env.PORT || 8000;
@@ -24,12 +25,19 @@ mongoose.connect("mongodb+srv://vikasguptha99:Vik240398@cluster0.0rsfijt.mongodb
 
 // routes
 app.post("/contactus",async(req, res)=>{
-
 	const formData = req.body;
 	console.log(formData);
 	await contactus.create(formData);
 	await res.send("true");
 });
+
+//route to post the feedback form data
+app.post("/home", async(req, res) => {
+	console.log(req.body)
+	const feedbackdata = req.body;
+	await feedback.create(feedbackdata);
+	await res.send("true");
+}); 
 
 // starting the port
 app.listen(port);
