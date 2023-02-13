@@ -12,6 +12,9 @@ mongoose.set('strictQuery', false);
 // importing required schemas
 var contactus = require('./models/contactusSchema');
 
+//importing Blog Form Schema
+var blogform = require('./models/blogformSchema');
+
 // assigning port no
 var port = process.env.PORT || 8000;
 
@@ -30,6 +33,14 @@ app.post("/contactus",async(req, res)=>{
 	await contactus.create(formData);
 	await res.send("true");
 });
+
+app.post("/BlogForm", async(req,res)=>{
+
+	const blogData = req.body;
+	console.log(blogData);
+	await blogform.create(blogData);
+	await res.send("true");
+})
 
 // starting the port
 app.listen(port);
