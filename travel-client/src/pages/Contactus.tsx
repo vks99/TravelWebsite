@@ -9,7 +9,7 @@ type PostType = {
     email: string;
     subject: string;
     message: string;
-  };
+};
 
 const Contactus=()=>{
 
