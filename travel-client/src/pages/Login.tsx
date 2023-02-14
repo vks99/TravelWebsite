@@ -56,6 +56,9 @@ const Login=()=>{
 				<label htmlFor="Password" className='form-label'>Password</label>
 				<input type="password" className='form-control' name='password' onChange={handleChange}  required/>
 			</div>
+            <div className="col-12">
+				<button className='button' type="submit">Login</button>
+			</div>
 			<Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
 				{successMessage}
 			</Alert>
