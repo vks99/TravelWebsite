@@ -12,8 +12,10 @@ const Navigation=()=>{
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/Destination">Destination</Nav.Link>
                     <Nav.Link href="/Blogs">Blogs</Nav.Link>
+                    <Nav.Link href="/BlogForm">BlogForm</Nav.Link>
                     <Nav.Link href="/History">History</Nav.Link>
                     <Nav.Link href="/Contactus">Contactus</Nav.Link>
+                    <Nav.Link href="/Signup">Signup</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

@@ -5,3 +5,4 @@ async function addContactusData(data){
     await contactus.create(data);
     return true
 }
+

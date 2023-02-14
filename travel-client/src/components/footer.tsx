@@ -2,50 +2,44 @@ import { NavLink } from 'react-router-dom';
 
 const Footer=()=>{
     return( 
-            <div className='main-footer d-flex flex-column h-100' >
-            <div className='container-fluid flex-grow-1'>
-                <div className='row'>
-                  <div className='col'>
-                      <h2>Student 1</h2>
-                      <ul className='list-unstyled'>
-                          <li>Vikas Uppala</li>
-                          <li> N01486527</li>
-                          <li>vikasgupta99@gmail.com</li>
-                      </ul>
-                  </div>
-                  <div className="col">
-                    <h2>Student 2</h2>
-                    <ul className='list-unstyled'>
-                       <li>Sarada Maddipatla</li>
-                       <li>N01486876</li>
-                       <li>saradamaddipatla364@gmail.com</li>
-                    </ul>
-                  </div>
-                  <div className="col">
-                    <h2>Student 3</h2>
-                    <ul className='list-unstyled'>
-                       <li>Su Zhang</li>
-                       <li>N01572673</li>
-                       <li>suzhang@gmail.com</li>
-                    </ul>
-                  </div>
-                  <div className="col">
-                    <h2>Student 4</h2>
-                    <ul className='list-unstyled'>
-                       <li>Sethu Madhava Naidu Lankipalli</li>
-                       <li>N01445828</li>
-                       <li>sethumadhav202@gmail.com</li>
-                    </ul>
-                  </div>                
-                </div>
-                <div className="row">
-                 <p className='col-sm'>
-                    &copy;{new Date().getFullYear()} Terms Of Service | Privacy
-                 </p>   
-                </div>
-            </div>
-            </div>
-
+      <div className="bg-dark py-3">
+      <div className="container text-white">
+        <div className="row">
+          <div className="col-md-4">
+            <span className="text-muted">Follow Us:</span>
+            <br/>
+            <a href="#">
+              <i className="fab fa-facebook-square fa-2x mx-3"></i>
+            </a>
+            <a href="#">
+              <i className="fab fa-twitter-square fa-2x mx-3"></i>
+            </a>
+            <a href="#">
+              <i className="fab fa-instagram fa-2x mx-3"></i>
+            </a>
+            <a href="#">
+              <i className="fab fa-linkedin fa-2x mx-3"></i>
+            </a>
+            
+          </div>
+          <div className="col-md-4">
+            <span className="text-muted">Contact Us:</span>
+            <br/>
+            <i className="fas fa-phone fa-2x mx-3"></i>
+            <a href="tel:+16478368653">(647) 836-8653</a>
+            <br/>
+            <i className="fas fa-envelope fa-2x mx-3"></i>
+            <a href="mailto:info@travel.com">info@travel.com</a>
+          </div>
+          <div className="col-md-4">
+            <span className="text-muted">Visit Us:</span>
+            <br/>
+            <i className="fas fa-map-marker-alt fa-2x mx-3"></i>
+             #205, Humber College, Canada
+          </div>
+        </div>
+      </div>
+    </div>
     )
 }
 
