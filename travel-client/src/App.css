@@ -86,9 +86,14 @@
   width: 100%;
   height: 500px;
 }
-.card-img-right {
+/* .card-img-right {
   width: 100%;
   height: 15vw;
+  object-fit: cover;
+} */
+.card-img-top{
+  width: 100%;
+  height: 20vw;
   object-fit: cover;
 }
 .cardcontent{
@@ -117,6 +122,14 @@
  
 }
 
+<<<<<<< HEAD
 .blog_images{
   object-fit:fill;
 }
+=======
+.travel-card {
+  height: 200px; /* set your desired height */
+  object-fit: cover; /* preserve aspect ratio and fill the height */
+}
+
+>>>>>>> df398aceff2fe50807bfa15ae04bc4fbdfef2df3
