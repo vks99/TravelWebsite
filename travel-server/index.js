@@ -15,6 +15,7 @@ var feedback = require('./models/feedbackSchema');
 
 //importing Blog Form Schema
 var blogform = require('./models/blogformSchema');
+var User = require('./models/userSchema');
 
 // assigning port no
 var port = process.env.PORT || 8000;
@@ -34,6 +35,15 @@ app.post("/contactus",async(req, res)=>{
 	await res.send("true");
 });
 
+
+//route to post the feedback form data
+app.post("/home", async(req, res) => {
+	console.log(req.body)
+	const feedbackdata = req.body;
+	await feedback.create(feedbackdata);
+	await res.send("true");
+}); 
+
 app.post("/BlogForm", async(req,res)=>{
 
 	const blogData = req.body;
@@ -45,14 +55,16 @@ app.post("/BlogForm", async(req,res)=>{
 app.post("/register", async (req, res) => {
 	try {
 	  // Get user input
-	  let first_name = req.body.first_name;
-	  let last_name = req.body.last_name;
+	  let name = req.body.name;
 	  let email = req.body.email;
 	  let password = req.body.password;
+	  let address = req.body.address;
+	  let phone = req.body.phone;
+	  let username = req.body.username;
 
   
 	  // Validate user input
-	  if (!(email && password && first_name && last_name)) {
+	  if (!(email && password && name )) {
 		console.log(email);
 		console.log(req.body.email);
 		res.status(400).send("All input is required");
@@ -71,8 +83,10 @@ app.post("/register", async (req, res) => {
   
 	  // Create user in our database
 	  const user = await User.create({
-		first_name,
-		last_name,
+		name,
+		address,
+		phone,
+		username,
 		email: email.toLowerCase(), // sanitize: convert email to lowercase
 		password: encryptedPassword,
 	  });
@@ -87,7 +101,7 @@ app.post("/register", async (req, res) => {
 	  );
 	  // save user token
 	  res.cookie('auth',token);
-	  res.redirect('/welcome');
+	  await res.send("true");
 	} catch (err) {
 	  console.log(err);
 	}
@@ -117,7 +131,7 @@ app.post("/login", async (req, res) => {
   
 		// save user token
 		res.cookie('auth',token);
-		res.redirect('/welcome');
+		res.redirect('/home');
 	  }
 	  res.status(400).send("Invalid Credentials");
 	} catch (err) {

@@ -15,6 +15,7 @@ const Navigation=()=>{
                     <Nav.Link href="/BlogForm">BlogForm</Nav.Link>
                     <Nav.Link href="/History">History</Nav.Link>
                     <Nav.Link href="/Contactus">Contactus</Nav.Link>
+                    <Nav.Link href="/Signup">Signup</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
