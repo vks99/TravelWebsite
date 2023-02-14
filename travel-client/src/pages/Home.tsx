@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
-
 type Props = {
     name : string;
     email: string;

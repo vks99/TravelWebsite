@@ -116,3 +116,7 @@
   width: 100%;
  
 }
+
+.blog_images{
+  object-fit:fill;
+}
