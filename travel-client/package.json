@@ -10,12 +10,8 @@
     "@types/node": "^16.18.12",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-<<<<<<< HEAD
-    "axios": "^1.3.3",
-=======
     "axios": "^1.3.2",
     "boostrap": "^2.0.0",
->>>>>>> df398aceff2fe50807bfa15ae04bc4fbdfef2df3
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.1",
