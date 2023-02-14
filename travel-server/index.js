@@ -34,15 +34,6 @@ app.post("/contactus",async(req, res)=>{
 	await res.send("true");
 });
 
-<<<<<<< HEAD
-//route to post the feedback form data
-app.post("/home", async(req, res) => {
-	console.log(req.body)
-	const feedbackdata = req.body;
-	await feedback.create(feedbackdata);
-	await res.send("true");
-}); 
-=======
 app.post("/BlogForm", async(req,res)=>{
 
 	const blogData = req.body;
@@ -133,7 +124,6 @@ app.post("/login", async (req, res) => {
 	  console.log(err);
 	}
   });
->>>>>>> a4fbea357c4b90de394b9705e2af43d9f82325a0
 
 // starting the port
 app.listen(port);
