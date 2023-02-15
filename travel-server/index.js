@@ -58,10 +58,7 @@ app.post("/BlogForm", async(req,res)=>{
 })
 app.get("/test",auth, (req,res)=>{
     console.log(req.cookies);
-	res.send(`<form method="post" action="/deleteresaurant">\
-	<input type="text" name="restaurant_id" placeholder="restaurant_id">
-     <input type="submit">
-	</form>`);
+	res.send(`<p>hello</p>`);
 	});
 
 app.post("/register", async (req, res) => {
@@ -79,7 +76,8 @@ app.post("/register", async (req, res) => {
 	  if (!(email && password && name )) {
 		console.log(email);
 		console.log(req.body.email);
-		res.status(400).send("All input is required");
+		console.log("All input is required");
+		//res.status(400).send("All input is required");
 
 	  }
   
@@ -87,7 +85,8 @@ app.post("/register", async (req, res) => {
 	  const oldUser = await User.findOne({ email });
   
 	  if (oldUser) {
-		return res.status(409).send("User Already Exist. Please Login");
+		console.log("User Already Exist. Please Login");
+		//return res.status(409).send("User Already Exist. Please Login");
 	  }
   
 	  //Encrypt user password
@@ -127,7 +126,8 @@ app.post("/login", async (req, res) => {
 	  let password = req.body.password;
 	  // Validate user input
 	  if (!(email && password)) {
-		res.status(400).send("All input is required");
+		console.log("All input is required");
+		//res.status(400).send("All input is required");
 	  }
 	  // Validate if user exist in our database
 	  const user = await User.findOne({ email });
@@ -144,11 +144,11 @@ app.post("/login", async (req, res) => {
   
 		// save user token
 		res.cookie('auth',token);
-		res.redirect('/home');
+		//res.redirect('/home');
 		console.log("loginsuccess");
 		await res.send("true");
 	  }
-	  console.log("loginunsuccess");
+	  console.log("Invalid Credentials");
 	  //res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
