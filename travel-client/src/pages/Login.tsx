@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Alert } from "reactstrap";
 type LoginForm = {
 	password:String,
-	user_name:String,
+	email:String,
   }
 
 const Login=()=>{
@@ -49,8 +49,8 @@ const Login=()=>{
 		<h1 className='mb-4'>Login</h1>
 		<form onSubmit={onSubmit} className='row g-4'>
 		<div className="col-md-6">
-				<label htmlFor="User Name" className='form-label'>User Name</label>
-				<input type="text" className='form-control' name='user_name' onChange={handleChange} placeholder='User Name' required/>
+				<label htmlFor="Email" className='form-label'>Email</label>
+				<input type="text" className='form-control' name='email' onChange={handleChange} placeholder='User Name' required/>
 			</div>
 			<div className="col-md-6">
 				<label htmlFor="Password" className='form-label'>Password</label>
