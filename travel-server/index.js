@@ -1,4 +1,8 @@
 // Importing all required modules
+require("dotenv").config();
+var cookieParser = require('cookie-parser');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 var express  = require('express');
 var app = express();
 var mongoose = require('mongoose');
@@ -7,11 +11,13 @@ const cors = require('cors');
 
 // Setting cors and mongoose warning
 app.use(cors());
+app.use(cookieParser()); 
 mongoose.set('strictQuery', false);
 
 // importing required schemas
 var contactus = require('./models/contactusSchema');
 var feedback = require('./models/feedbackSchema');
+const auth = require("./middleware/auth");
 
 //importing Blog Form Schema
 var blogform = require('./models/blogformSchema');
@@ -50,6 +56,13 @@ app.post("/BlogForm", async(req,res)=>{
 	await blogform.create(blogData);
 	await res.send("true");
 })
+app.get("/test",auth, (req,res)=>{
+    console.log(req.cookies);
+	res.send(`<form method="post" action="/deleteresaurant">\
+	<input type="text" name="restaurant_id" placeholder="restaurant_id">
+     <input type="submit">
+	</form>`);
+	});
 
 app.post("/register", async (req, res) => {
 	try {
@@ -100,6 +113,7 @@ app.post("/register", async (req, res) => {
 	  );
 	  // save user token
 	  res.cookie('auth',token);
+	  console.log("registersuccess");
 	  await res.send("true");
 	} catch (err) {
 	  console.log(err);
@@ -131,8 +145,11 @@ app.post("/login", async (req, res) => {
 		// save user token
 		res.cookie('auth',token);
 		res.redirect('/home');
+		console.log("loginsuccess");
+		await res.send("true");
 	  }
-	  res.status(400).send("Invalid Credentials");
+	  console.log("loginunsuccess");
+	  //res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
 	}
