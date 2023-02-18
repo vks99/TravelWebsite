@@ -15,7 +15,8 @@ var feedback = require('./models/feedbackSchema');
 
 //importing Blog Form Schema
 var blogform = require('./models/blogformSchema');
-var User = require('./models/userSchema');
+
+var User = require('./models/userScheme');
 
 // assigning port no
 var port = process.env.PORT || 8000;
@@ -35,8 +36,6 @@ app.post("/contactus",async(req, res)=>{
 	await res.send("true");
 });
 
-<<<<<<< HEAD
-=======
 
 //route to post the feedback form data
 app.post("/home", async(req, res) => {
@@ -46,7 +45,6 @@ app.post("/home", async(req, res) => {
 	await res.send("true");
 }); 
 
->>>>>>> df398aceff2fe50807bfa15ae04bc4fbdfef2df3
 app.post("/BlogForm", async(req,res)=>{
 	const blogData = req.body;
 	console.log(blogData);
