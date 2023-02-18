@@ -1,4 +1,8 @@
 // Importing all required modules
+require("dotenv").config();
+var cookieParser = require('cookie-parser');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 var express  = require('express');
 var app = express();
 var mongoose = require('mongoose');
@@ -7,14 +11,17 @@ const cors = require('cors');
 
 // Setting cors and mongoose warning
 app.use(cors());
+app.use(cookieParser()); 
 mongoose.set('strictQuery', false);
 
 // importing required schemas
 var contactus = require('./models/contactusSchema');
 var feedback = require('./models/feedbackSchema');
+const auth = require("./middleware/auth");
 
 //importing Blog Form Schema
 var blogform = require('./models/blogformSchema');
+var User = require('./models/userScheme');
 
 var User = require('./models/userScheme');
 
@@ -51,6 +58,10 @@ app.post("/BlogForm", async(req,res)=>{
 	await blogform.create(blogData);
 	await res.send("true");
 })
+app.get("/test",auth, (req,res)=>{
+    console.log(req.cookies);
+	res.send(`<p>hello</p>`);
+	});
 
 app.post("/register", async (req, res) => {
 	try {
@@ -67,7 +78,8 @@ app.post("/register", async (req, res) => {
 	  if (!(email && password && name )) {
 		console.log(email);
 		console.log(req.body.email);
-		res.status(400).send("All input is required");
+		console.log("All input is required");
+		//res.status(400).send("All input is required");
 
 	  }
   
@@ -75,7 +87,8 @@ app.post("/register", async (req, res) => {
 	  const oldUser = await User.findOne({ email });
   
 	  if (oldUser) {
-		return res.status(409).send("User Already Exist. Please Login");
+		console.log("User Already Exist. Please Login");
+		//return res.status(409).send("User Already Exist. Please Login");
 	  }
   
 	  //Encrypt user password
@@ -101,6 +114,7 @@ app.post("/register", async (req, res) => {
 	  );
 	  // save user token
 	  res.cookie('auth',token);
+	  console.log("registersuccess");
 	  await res.send("true");
 	} catch (err) {
 	  console.log(err);
@@ -114,7 +128,8 @@ app.post("/login", async (req, res) => {
 	  let password = req.body.password;
 	  // Validate user input
 	  if (!(email && password)) {
-		res.status(400).send("All input is required");
+		console.log("All input is required");
+		//res.status(400).send("All input is required");
 	  }
 	  // Validate if user exist in our database
 	  const user = await User.findOne({ email });
@@ -131,9 +146,12 @@ app.post("/login", async (req, res) => {
   
 		// save user token
 		res.cookie('auth',token);
-		res.redirect('/home');
+		//res.redirect('/home');
+		console.log("loginsuccess");
+		await res.send("true");
 	  }
-	  res.status(400).send("Invalid Credentials");
+	  console.log("Invalid Credentials");
+	  //res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
 	}

@@ -9,6 +9,7 @@ userSchema = new Schema ({
 	password:String,
 	address:String,
 	user_name:String,
+	token: { type: String }
 });
 
 module.exports = mongoose.model('user', userSchema);
