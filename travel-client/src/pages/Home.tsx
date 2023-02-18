@@ -2,11 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
-<<<<<<< HEAD
-=======
 
 
->>>>>>> df398aceff2fe50807bfa15ae04bc4fbdfef2df3
 type Props = {
     name : string;
     email: string;
