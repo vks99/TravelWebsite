@@ -17,6 +17,7 @@ mongoose.set('strictQuery', false);
 // importing required schemas
 var contactus = require('./models/contactusSchema');
 var feedback = require('./models/feedbackSchema');
+var payment = require('./models/paymentSchema');
 const auth = require("./middleware/auth");
 
 //importing Blog Form Schema
@@ -155,6 +156,15 @@ app.post("/login", async (req, res) => {
 	} catch (err) {
 	  console.log(err);
 	}
+  });
+
+
+  //route for payment 
+  app.post("/Payment", async(req, res) => {
+    console.log(req.body)
+	const paymentData = req.body;
+	await payment.create(paymentData);
+	await res.send("true");
   });
 
 // starting the port
