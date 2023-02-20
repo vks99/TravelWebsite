@@ -178,7 +178,7 @@ const Payment=()=>{
            </div>
            <div className="row">
                 <div className='col-md-12 d-flex justify-content-center'>
-                    <button  type="submit" className='btn btn-primary btn-lg px-5'>Pay</button>
+                    <button  type="submit" className='btn btn-primary btn-lg px-5 my-5'>Pay</button>
                 </div> 
                 <Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
                 {successMessage}
