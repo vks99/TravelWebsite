@@ -178,3 +178,18 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.blog-title {
+  font-family: "Arial", sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.blogpost{
+  background-image: url("../src/images/blogpost_bg1.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

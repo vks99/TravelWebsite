@@ -24,6 +24,7 @@ var blogform = require('./models/blogformSchema');
 var User = require('./models/userScheme');
 
 var User = require('./models/userScheme');
+const multer = require("multer");
 
 // assigning port no
 var port = process.env.PORT || 8000;
@@ -52,12 +53,26 @@ app.post("/home", async(req, res) => {
 	await res.send("true");
 }); 
 
-app.post("/BlogForm", async(req,res)=>{
+app.post("/blogForm", async(req,res)=>{
 	const blogData = req.body;
 	console.log(blogData);
 	await blogform.create(blogData);
 	await res.send("true");
 })
+
+app.get("/blogs", async(req,res)=>{
+	try {
+		const posts = await blogform.find();
+		console.log(posts);
+		res.json(posts);
+		
+	  } catch (err) {
+		console.log(err);
+		res.status(500).json({ message: 'Server Error' });
+	  }
+})
+
+
 app.get("/test",auth, (req,res)=>{
     console.log(req.cookies);
 	res.send(`<p>hello</p>`);
