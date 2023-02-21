@@ -7,6 +7,10 @@ var Schema = mongoose.Schema;
 BlogFormSchema = new Schema({
     title : String,
     author : String,
-    content : String
+    content : String,
+    date: {
+        type: Date,
+        default: Date.now
+      },
 });
 module.exports = mongoose.model('blogform', BlogFormSchema);

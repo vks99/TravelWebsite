@@ -3,11 +3,12 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import axios from 'axios';
 import { redirect } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
+//import { useHistory } from "react-router-dom";
 
 type blogPost = {
   title: String,
   author: String,
-  content: String
+  content: String,
 }
 
 
@@ -16,17 +17,19 @@ const BlogForm = () => {
   const [blogData, setBlogData] = useState<blogPost[]>([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  //const history = useHistory();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(blogData);
     const response = await axios.post(
-      'http://localhost:8000/BlogForm',blogData
+      'http://localhost:8000/blogForm',blogData
   )
   .then((res) => {
       if(res.data===true)
       {
         console.log(res.data);
-          redirect('/Blog');
+        //history.push('/new-page');
       }
       else{
         console.log("Unable to submit the blog data");
@@ -40,8 +43,8 @@ const BlogForm = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBlogData({ ...blogData, [e.target.name]: e.target.value });
-  };
+      setBlogData({ ...blogData, [e.target.name]: e.target.value });
+    }
 
   const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBlogData({ ...blogData, [e.target.name]: e.target.value });
@@ -89,6 +92,10 @@ const BlogForm = () => {
             <label htmlFor="inputMessage" className='form-label'>Blog Content</label>
             <textarea className='form-control' rows={5} name='content' onChange={handleChangeTextArea} placeholder='Enter Content' required></textarea>
           </div>
+          {/* <div className="col-12" >
+            <label htmlFor="image" className='form-label'>Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" onChange={handleChange} />
+          </div> */}
           <div className="col-12">
             <button className='button bg-dark' type="submit">Post Blog!</button>
           </div>
