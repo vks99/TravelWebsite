@@ -11,6 +11,7 @@ mongoose.set('strictQuery', false);
 
 // importing required schemas
 var contactus = require('./models/contactusSchema');
+var dest_packages = require('./models/destPackagesScehma');
 var feedback = require('./models/feedbackSchema');
 
 //importing Blog Form Schema
@@ -106,7 +107,7 @@ app.post("/register", async (req, res) => {
 	}
   });
   
-app.post("/login", async (req, res) => {
+ app.post("/login", async (req, res) => {
 	try {
 	  // Get user input
 	  let email = req.body.email;
@@ -137,6 +138,11 @@ app.post("/login", async (req, res) => {
 	  console.log(err);
 	}
   });
+
+app.get("/packages",async(req, res)=>{
+const packages =  await dest_packages.find();
+  await res.json(packages);
+});
 
 // starting the port
 app.listen(port);
