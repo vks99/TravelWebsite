@@ -22,7 +22,7 @@ const Payment=()=>{
     
     const [payment, setPayment]=useState({
         firstname: "",
-        lastname: "",
+        lastname: "", 
         country:"",
         city: "",
         zipcode: "",
@@ -39,6 +39,8 @@ const Payment=()=>{
     const [cvvError, setCVVError] = useState('');
     const [successMessage, setSuccessMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const [validate, setValidate] = useState(false);
+    let checkvalidate = false;
 
     const sendPaymentRequest = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -48,28 +50,34 @@ const Payment=()=>{
                 if(!(phone.length === 10) ) {
                     console.log('entered if loop')
                     setPhoneError("Please enter a valid 10 digit phone number");
+                    checkvalidate=true;
                 }
                 if(!(cardnumber.toString().length === 16) ) {
                     setCardError("Please enter a valid 16 digit card number");
+                    checkvalidate=true;
                 }
                 if(!(cvv.toString().length === 3) ) {
                     setCVVError("Please enter a valid 3 digit CVV");
+                    checkvalidate=true;
                 }
-            
-           const response = await axios.post(
-            'http://localhost:8000/Payment', payment
-           ).then((res) => {
-            if(res.data===true)
-            {
-                setSuccessMessage("Payment Done successfully!");
-                setIsOpen(true);
+            if(checkvalidate === false){
+                console.log(validate);
+                const response = await axios.post(
+                    'http://localhost:8000/Payment', payment
+                   ).then((res) => {
+                    if(res.data===true)
+                    {
+                        setSuccessMessage("Payment Done successfully!");
+                        setIsOpen(true);
+                    }
+                    else{
+                        setSuccessMessage("Payment Failed: Invalid data entered. Please check the information you have entered and try again.");
+                        setIsOpen(true);
+                    }
+                    console.log(res.data);
+                })
             }
-            else{
-                setSuccessMessage("Payment Failed: Invalid data entered. Please check the information you have entered and try again.");
-                setIsOpen(true);
-            }
-            console.log(res.data);
-        })
+           
     }
         catch (err){
             console.log(err);
