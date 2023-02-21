@@ -47,39 +47,8 @@
   min-height: 100vh;
 }
 
-.contact-form {
-  background: hsla(141, 54%, 86%, 1);
-
-  background: linear-gradient(
-    270deg,
-    hsla(141, 54%, 86%, 1) 22%,
-    hsla(200, 2%, 74%, 1) 74%
-  );
-
-  background: -moz-linear-gradient(
-    270deg,
-    hsla(141, 54%, 86%, 1) 22%,
-    hsla(200, 2%, 74%, 1) 74%
-  );
-
-  background: -webkit-linear-gradient(
-    270deg,
-    hsla(141, 54%, 86%, 1) 22%,
-    hsla(200, 2%, 74%, 1) 74%
-  );
-
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#caefd7", endColorstr="#bbbdbe", GradientType=1 );
-}
-
 .main-content {
   flex: 1;
-}
-
-.footer {
-  background-color: #eeeeee;
-  color: black;
-  text-align: center;
-  margin-top: auto;
 }
 
 .bg-img-top{
@@ -129,6 +98,8 @@
   object-fit: cover; /* preserve aspect ratio and fill the height */
 }
 
+/* Destination Page Styling */
+
 :root{
   --primary:#86b817;
   --secondary:#fe8800;
@@ -137,8 +108,8 @@
 }
 
 .hero-header{
-  background: linear-gradient(rgba(20,30,31,0.7),rgba(20,20,31,0.7),url(../src/images/background_image_city.jpeg));
-  background-image: url("../src/images/background_image_city.jpeg");
+  background: linear-gradient(rgba(20,30,31,0.7),rgba(20,20,31,0.7));
+  background-image: url("../public/images/Destination/DestinationHeader.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -173,7 +144,7 @@
 
 .booking{
   background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-  background-image: url("../src/images/booking-background-image8.jpg");
+  background-image: url("../public/images/Destination/booking-background-image8.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -188,8 +159,44 @@
 }
 
 .blogpost{
-  background-image: url("../src/images/blogpost_bg1.jpg");
+  background-image: url("../public/blogpost_bg1.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+
+/* ContactUs Page Styling */
+
+.contact-form {
+  background: hsla(141, 54%, 86%, 1);
+
+  background: linear-gradient(
+    270deg,
+    hsla(141, 54%, 86%, 1) 22%,
+    hsla(200, 2%, 74%, 1) 74%
+  );
+
+  background: -moz-linear-gradient(
+    270deg,
+    hsla(141, 54%, 86%, 1) 22%,
+    hsla(200, 2%, 74%, 1) 74%
+  );
+
+  background: -webkit-linear-gradient(
+    270deg,
+    hsla(141, 54%, 86%, 1) 22%,
+    hsla(200, 2%, 74%, 1) 74%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#caefd7", endColorstr="#bbbdbe", GradientType=1 );
+}
+
+/* Footer Styling */
+
+.footer {
+  background-color: #eeeeee;
+  color: black;
+  text-align: center;
+  margin-top: auto;
 }

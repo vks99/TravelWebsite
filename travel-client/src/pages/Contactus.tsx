@@ -66,11 +66,11 @@ const Contactus=()=>{
                             </div>
                             <div className="Email d-flex align-items-center mb-4">
                                 <i className='fa-solid fa-envelope icon'></i>
-                                <p><b>Email : </b>Tarvel@gmail.com</p>
+                                <p><b>Email : </b>TarvelCation@gmail.com</p>
                             </div>
                             <div className="website d-flex align-items-center mb-4">
                                 <i className='fa-solid fa-earth-asia icon'></i>
-                                <p><b>Website : </b>Tarvel.com</p>
+                                <p><b>Website : </b>TarvelCation.com</p>
                             </div>
                         </div>
                     </div>

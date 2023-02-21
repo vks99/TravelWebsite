@@ -23,7 +23,6 @@ const Navigation=()=>{
 
           
                     <Nav.Link href="/Signup">Signup</Nav.Link>
-                    <Nav.Link href="/Payment">payment</Nav.Link>
                 </Nav>
                 {auth.isLoggedIn ? (
           
