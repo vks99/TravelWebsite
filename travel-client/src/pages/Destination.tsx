@@ -196,7 +196,7 @@ const Destination = () => {
                         Read More
                       </a>
                       <a
-                        href=""
+                        href="/Payment"
                         className="btn btn-sm btn-success px-3"
                         style={{ borderRadius: "0 30px 30px 0" }}
                       >

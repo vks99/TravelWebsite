@@ -159,7 +159,7 @@
 }
 
 .blogpost{
-  background-image: url("../src/images/blogpost_bg1.jpg");
+  background-image: url("../public/blogpost_bg1.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
