@@ -10,16 +10,21 @@ import Contactus from './pages/Contactus';
 import Destination from './pages/Destination';
 import History from './pages/History';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login from './components/auth/Login';
 import Payment from './pages/Payment';
-import Signup from './pages/Signup';
+import Signup from './components/auth/Signup';
 import Footer from './components/footer';
 import Header from './components/header';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
+import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
   return(
     <div className='main-heading'>
+    <AuthContextProvider>
         <Navigation />
+    
      <div className='main-content'>
         <Routes>
             <Route path='/Signup' element={<Signup />}/>
@@ -32,11 +37,12 @@ function App() {
             <Route path='/Contactus' element={<Contactus />}/>
             <Route path='/Payment' element={<Payment />}/>
         </Routes>
+    
         </div>
         <div className='footer'>
         <Footer />
         </div>
-            
+        </AuthContextProvider>    
     </div>
         
 );

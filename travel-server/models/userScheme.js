@@ -8,7 +8,6 @@ userSchema = new Schema ({
 	email : String,
 	password:String,
 	address:String,
-	user_name:String,
 	token: { type: String }
 });
 

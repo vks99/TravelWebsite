@@ -87,7 +87,6 @@ app.post("/register", async (req, res) => {
 	  let password = req.body.password;
 	  let address = req.body.address;
 	  let phone = req.body.phone;
-	  let username = req.body.username;
 
   
 	  // Validate user input
@@ -115,7 +114,6 @@ app.post("/register", async (req, res) => {
 		name,
 		address,
 		phone,
-		username,
 		email: email.toLowerCase(), // sanitize: convert email to lowercase
 		password: encryptedPassword,
 	  });
@@ -129,9 +127,8 @@ app.post("/register", async (req, res) => {
 		}
 	  );
 	  // save user token
-	  res.cookie('auth',token);
-	  console.log("registersuccess");
-	  await res.send("true");
+	  console.log('secuess');
+	  await res.send(token);
 	} catch (err) {
 	  console.log(err);
 	}
@@ -160,13 +157,11 @@ app.post("/login", async (req, res) => {
 		  }
 		);
   
-		// save user token
-		res.cookie('auth',token);
-		//res.redirect('/home');
+
+		await res.send(token);
 		console.log("loginsuccess");
-		await res.send("true");
 	  }
-	  console.log("Invalid Credentials");
+	  //console.log("Invalid Credentials");
 	  //res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
