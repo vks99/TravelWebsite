@@ -144,6 +144,7 @@ app.post("/register", async (req, res) => {
 	  // save user token
 	  console.log('secuess');
 	  await res.send(token);
+	  console.log('secuess2');
 	} catch (err) {
 	  console.log(err);
 	}
@@ -161,6 +162,7 @@ app.post("/register", async (req, res) => {
 	  }
 	  // Validate if user exist in our database
 	  const user = await User.findOne({ email });
+	  console.log(user);
   
 	  if (user && (await bcrypt.compare(password, user.password))) {
 		// Create token
@@ -171,15 +173,15 @@ app.post("/register", async (req, res) => {
 			expiresIn: "2h",
 		  }
 		);
-  
-
 		await res.send(token);
 		console.log("loginsuccess");
 	  }
 	  //console.log("Invalid Credentials");
+	  console.log("loginnotsuccess1");
 	  //res.status(400).send("Invalid Credentials");
 	} catch (err) {
 	  console.log(err);
+	  console.log("loginnotsuccess2");
 	}
   });
 

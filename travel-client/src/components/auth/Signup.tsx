@@ -55,10 +55,10 @@ const Signup=()=>{
         config
       );
       localStorage.setItem('token', response.data.token);
-      let decodeddata = decode(response.data.token);
-      console.log(decodeddata);
+      //let decodeddata = decode(response.data.token);
+      //console.log(decodeddata);
       auth.login();
-      navigate('/posts');
+      navigate('/Destination');
     } catch (e: any) {
       console.log('error ', e.message);
     }

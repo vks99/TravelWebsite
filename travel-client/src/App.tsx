@@ -30,12 +30,14 @@ function App() {
             <Route path='/Signup' element={<Signup />}/>
             <Route path='/Login' element={<Login />}/>
             <Route path='/' element={<Home />}/>
+            <Route element={<ProtectedRoute />}>
             <Route path='/Destination' element={<Destination />}/>
             <Route path='/Blogs' element={<Blogs />}/>
             <Route path='/BlogForm' element={<BlogForm />}/>
             <Route path='/History' element={<History />}/>
-            <Route path='/Contactus' element={<Contactus />}/>
             <Route path='/Payment' element={<Payment />}/>
+            </Route>
+            <Route path='/Contactus' element={<Contactus />}/>
         </Routes>
     
         </div>
