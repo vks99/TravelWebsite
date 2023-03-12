@@ -3,19 +3,19 @@ import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Alert } from "reactstrap";
 
-type paymentProps = {
-    firstname: string;
-    lastname: string;
-    country:string;
-    city: string;
-    zipcode: string;
-    email: string;
-    phone: string;
-    cardname: string;
-    cardnumber: number;
-    monthYear: string;
-    cvv: number;
-}
+// type paymentProps = {
+//     firstname: string;
+//     lastname: string;
+//     country:string;
+//     city: string;
+//     zipcode: string;
+//     email: string;
+//     phone: string;
+//     cardname: string;
+//     cardnumber: number;
+//     monthYear: string;
+//     cvv: number;
+// }
 
 
 const Payment=()=>{

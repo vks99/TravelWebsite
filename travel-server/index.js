@@ -19,6 +19,8 @@ var contactus = require('./models/contactusSchema');
 var dest_packages = require('./models/destPackagesScehma');
 var feedback = require('./models/feedbackSchema');
 var payment = require('./models/paymentSchema');
+var home_destinations = require('./models/homeDestinationsSchema');
+var travelguides = require('./models/travelGuideSchema');
 const auth = require("./middleware/auth");
 
 //importing Blog Form Schema
@@ -52,8 +54,20 @@ app.post("/home", async(req, res) => {
 	console.log(req.body)
 	const feedbackdata = req.body;
 	await feedback.create(feedbackdata);
-	await res.send("true");
+	 await res.send("true");
+	
+
 }); 
+//route to get destination details in homepage from db 
+app.get("/home_destinations",async(req, res)=>{
+	const dest =  await home_destinations.find();
+ 	 await res.json(dest);
+	});
+//route to get Travelguides details in homepage from db 
+app.get("/home_travelguides",async(req, res)=>{
+	const trvelguide =  await travelguides.find();
+ 	 await res.json(trvelguide);
+	});
 
 app.post("/blogForm", async(req,res)=>{
 	const blogData = req.body;

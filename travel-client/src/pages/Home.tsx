@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
 
@@ -9,10 +9,31 @@ type Props = {
     email: string;
     feedback: string;
 }
+type destProps = {
+    name: string;
+    description: string;
+}
+type guideProps = {
+    name: string;
+}
+
 
 const Home=()=>{
     const [feed, setFeed] = useState(false);
     const [feedback, setFeedback] = useState<Props[]>([]);
+    const [dest, setdest] = useState<destProps[]>([]);
+    const [travelguide, setTravelGuide] = useState<guideProps[]>([]);
+    const [imgurl,setImageurl] = useState([
+        "/images/Home/image1.jpeg",
+        "/images/Home/image2.jpeg",
+        "/images/Home/image3.jpeg"
+    ]);
+    const [guideimgurl,setGuideImageurl] = useState([
+        "/images/Home/sarada_img.jpg",
+        "/images/Home/vikas_image1.jpg",
+        "/images/Home/sethu_madhav_image1.jpg",
+        "/images/Home/suzhang.jpeg"
+    ]);
     const sendFeedPostRequest = async () => {
         try{
            const response = await axios.post(
@@ -24,16 +45,38 @@ const Home=()=>{
             console.log(err);
         }
     };
+
+    useEffect(() => {
+    axios
+      .get("http://localhost:8000/home_destinations")
+      .then((res) => {
+        setdest(res.data);
+        console.log(dest);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      axios
+      .get("http://localhost:8000/home_travelguides")
+      .then((res) => {
+        setTravelGuide(res.data);
+        console.log(travelguide);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setFeedback({...feedback, [e.target.name]: e.target.value});
     }
     return(
+        //Code for images scrolling
         <div>
            <Carousel className='my-5'>
             <Carousel.Item>
                 <img
                 className="bg-img-top"
-                src="/background_image_fort3.jpeg"
+                src="images/Home/background_image_fort3.jpeg"
                 alt="First slide"
                 />
                 <Carousel.Caption>
@@ -45,7 +88,7 @@ const Home=()=>{
             <Carousel.Item>
                 <img
                 className="bg-img-top"
-                src="/background_image_city.jpeg"
+                src="images/Home/background_image_city.jpeg"
                 alt="Second slide"
                 />
 
@@ -57,7 +100,7 @@ const Home=()=>{
             <Carousel.Item>
                 <img
                 className="bg-img-top"
-                src="/background_image_fort.jpeg"
+                src="images/Home/background_image_fort.jpeg"
                 alt="Third slide"
                 />
             <Carousel.Caption>
@@ -68,91 +111,43 @@ const Home=()=>{
             </Carousel.Caption>
             </Carousel.Item>
             </Carousel>
+
         <div className='row text-center mt-5'>
             <h2>Popular Destinations</h2>
         </div>
-        
-        
-            <div className='container mb-5'>
-                 <div className="card-deck">
+        <div className='container mb-5'>
+            <div className="card-deck">
+                {dest.map((item, index) => ( 
                     <div className="card">
-                        <img src="/image1.jpeg" className="card-img-top" alt="Card Image"/>
-                        <div className="card-body">
-                        <h3 className="card-title">India</h3>
-                        <p className="card-text">The natural beauty of India captivates everyone. There are many rivers like Ganga,
-                                            Jamuna, Brahmaputra etc. to enhance the natural beauty in the country of India.</p>
-                            <div className='btn mb-2'>
-                            <a href="/Destination" className="btn btn-primary">View More</a>
-                            </div>
+                    <img src={imgurl[index]} className="card-img-top" alt="Card Image"/>
+                    <div className="card-body">
+                    <h3 className="card-title">{item.name}</h3>
+                    <p className="card-text">{item.description}</p>
+                        <div className='btn mb-2'>
+                        <a href="/Destination" className="btn btn-primary">View More</a>
                         </div>
                     </div>
-                    <div className="card">
-                        <img src="/image2.jpeg" className="card-img-top" alt="Card Image"/>
-                        <div className="card-body">
-                        <h3 className="card-title">Canada</h3>
-                        <p className="card-text">Canada is famous for its picturesque landscapes during autumn. 
-                                                    The stunning scenery of 
-                                                    Algonquin Park, makes it a top spot to enjoy the beauty of autumn.</p>
-                            <div className='btn mb-2'>
-                            <a href="/Destination" className="btn btn-primary">View More</a>
-                            </div>
-                        </div>
                     </div>
-                    <div className="card">
-                        <img src="/image3.jpeg" className="card-img-top" alt="Card Image"/>
-                        <div className="card-body">
-                            <h3 className="card-title">SwitzerLand</h3>
-                            <p className="card-text">The astonishing ecological excellence of the magnificent Alps, the tranquility of lakes, cosmopolitan urban communities,
-                                                    and transcending castles.</p>
-                            <div className='btn mb-2'>
-                            <a href="/Destination" className="btn btn-primary">View More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-           </div>
+                ))};
+            </div> 
+        </div>
 
-
-
-            <div className="row mx-5 g-3">
-                <div className='header-travelguide'>
+        <div className="row mx-5 g-3">
+            <div className='header-travelguide'>
                     <h2>Travel Guides</h2>
                 </div>
+                {travelguide.map((i, index) => ( 
+                <div className="col-md-6 col-lg-3">
+                    <div className="card">
+                        <img className="rounded-circle card-image-travelguide " alt='image-travelguide' src={guideimgurl[index]} />
+                        <div className="card-text-travelguide d-flex justify-content-center">
+                          <h4>{i.name}</h4>
+                        </div>
+                    </div>
+                </div>
+                ))};
+        </div>
 
-                <div className="col-md-6 col-lg-3">
-                    <div className="card">
-                        <img className="rounded-circle card-image-travelguide " alt='image-travelguide' src='./sarada_img.jpg' />
-                        <div className="card-text-travelguide d-flex justify-content-center">
-                          <h4>Sarada Maddipatla</h4>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-3">
-                    <div className="card">
-                    <img className="rounded-circle card-image-travelguide" alt='image-travelguide' src='vikas_image1.jpg' />
-                        <div className="card-text-travelguide d-flex justify-content-center">
-                          <h4>Vikas Uppala</h4>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-3">
-                    <div className="card">
-                    <img className="rounded-circle card-image-travelguide" alt='image-travelguide' src='sethu_madhav_image1.jpg' />
-                        <div className="card-text-travelguide d-flex justify-content-center">
-                           <h4>Sethu Madhav</h4> 
-                        </div>
-                    </div>
-                </div>
-                <div className="col -3">
-                    <div className="card">
-                    <img className="rounded-circle card-image-travelguide" alt='image-travelguide' src='suzhang.jpeg' />
-                        <div className="card-text-travelguide d-flex justify-content-center">
-                             <h4>Su zhang</h4>   
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
         <div className='container'>
                 <div className="row mt-5">
                      <h3 className='d-flex justify-content-center'>If you are a savvy traveler, there is nothing better than sharing your personal experience.</h3><br/>
