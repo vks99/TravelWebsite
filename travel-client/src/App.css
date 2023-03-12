@@ -150,6 +150,10 @@
   background-size: cover;
 }
 
+.white-text {
+  color: white;
+}
+
 .blog-title {
   font-family: "Arial", sans-serif;
   font-size: 36px;

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Alert } from "reactstrap";
+import {useLocation} from 'react-router-dom';
 
 type paymentProps = {
     firstname: string;
@@ -20,6 +21,13 @@ type paymentProps = {
 
 const Payment=()=>{
     
+    
+    // const data = location.state?.test;
+    //  console.log(data);
+    const location = useLocation();
+    console.log(location.state);
+
+    const data = location.state;
     const [payment, setPayment]=useState({
         firstname: "",
         lastname: "", 
@@ -194,6 +202,10 @@ const Payment=()=>{
            </div>
           
            </form> 
+           <div>
+                <h1>{data.name}</h1>
+                <p>ID: {data.price}</p>
+            </div>
         </div>
     )
 }

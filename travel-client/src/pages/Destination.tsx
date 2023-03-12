@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 interface getType {
@@ -13,6 +14,7 @@ interface getType {
 }
 
 const Destination = () => {
+
   const [packages, setPackages] = useState<getType[]>([]);
   const [imgurl,setImageurl] = useState([
     "/images/Destination/destinationindia.jpg",
@@ -23,16 +25,19 @@ const Destination = () => {
     "/images/Destination/destinationAustralia.jpg",
   ]);
 
-  console.log(imgurl[0]);
-
-  const getPacakge = async () => {};
+    //   to navigate when clicked on button
+    const navigate = useNavigate();
+    const navigateTo = (name:String, price:number) => {
+      console.log(name);
+      console.log(price);
+      navigate('/Payment', { state: { name: name, price: price } });
+    };
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/packages")
       .then((res) => {
         setPackages(res.data);
-        console.log(packages);
       })
       .catch((error) => {
         console.error(error);
@@ -198,6 +203,7 @@ const Destination = () => {
                       <a
                         href="/Payment"
                         className="btn btn-sm btn-success px-3"
+                        onClick={() => navigateTo(item.name, item.price)}
                         style={{ borderRadius: "0 30px 30px 0" }}
                       >
                         Book Now
@@ -268,7 +274,8 @@ const Destination = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col-md-6">
+
+                    {/* <div className="col-md-6">
                       <div className="form-floating" id="date3">
                         <input
                           type="datetime-local"
@@ -280,7 +287,7 @@ const Destination = () => {
                           Date & Time
                         </label>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-md-6">
                       <div className="form-floating">
@@ -289,12 +296,27 @@ const Destination = () => {
                           id="select1"
                           className="form-select bg-transparent"
                         >
-                          <option value="1">Destination 1</option>
-                          <option value="2">Destination 2</option>
-                          <option value="3">Destination 3</option>
+                          <option value="1">Bali</option>
+                          <option value="2">Maldives</option>
+                          <option value="3">Bangkok</option>
                         </select>
                         <label htmlFor="select1" className="text-white">
                           Destination
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="col-md-6">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control bg-transparent white-text"
+                          id="price"
+                          placeholder="Price"
+                        />
+                        <label htmlFor="price" className="text-white">
+                        {" "}
+                          Price
                         </label>
                       </div>
                     </div>
