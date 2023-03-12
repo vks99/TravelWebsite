@@ -49,7 +49,7 @@ const Login=()=>{
         console.log(response.data.token)
         localStorage.setItem('token', response.data.token);
         auth.login();
-        navigate('/posts');
+        navigate('/Destination');
       } catch (err: any) {
         console.log(err);
        
