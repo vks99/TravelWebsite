@@ -14,9 +14,8 @@ interface getType {
 }
 
 const Destination = () => {
-
   const [packages, setPackages] = useState<getType[]>([]);
-  const [imgurl,setImageurl] = useState([
+  const [imgurl, setImageurl] = useState([
     "/images/Destination/destinationindia.jpg",
     "/images/Destination/DestinationCanada.jpg",
     "/images/Destination/destinationSwitzerland.jpg",
@@ -25,13 +24,39 @@ const Destination = () => {
     "/images/Destination/destinationAustralia.jpg",
   ]);
 
-    //   to navigate when clicked on button
-    const navigate = useNavigate();
-    const navigateTo = (name:String, price:number) => {
-      console.log(name);
-      console.log(price);
-      navigate('/Payment', { state: { name: name, price: price } });
-    };
+  //   to navigate when clicked on button
+  const navigate = useNavigate();
+  const navigateTo = (name: String, price: number) => {
+    console.log(name);
+    console.log(price);
+    navigate("/Payment", { state: { name: name, price: price } });
+  };
+
+  const [selectedDestination, setSelectedDestination] = useState("");
+  const [price, setPrice] = useState(0);
+
+  function handleDestinationChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+    setSelectedDestination(selectedValue);
+
+    let newPrice=0;
+    switch (selectedValue) {
+      case "Bali":
+        newPrice = 1000;
+        break;
+      case "Maldives":
+        newPrice = 1500;
+        break;
+      case "Bangkok":
+        newPrice = 2000;
+        break;
+      default:
+        newPrice = 0;
+        break;
+    }
+    setPrice(newPrice);
+  }
 
   useEffect(() => {
     axios
@@ -161,11 +186,7 @@ const Destination = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="package-item">
                   <div className="overflow-hidden">
-                    <img
-                      src={imgurl[index]}
-                      alt=""
-                      className="img-fluid"
-                    />
+                    <img src={imgurl[index]} alt="" className="img-fluid" />
                   </div>
 
                   <div className="d-flex border-bottom">
@@ -174,10 +195,12 @@ const Destination = () => {
                       {item.name}
                     </small>
                     <small className="flex-fill text-center border-end py-2">
-                      <i className="fa fa-calendar-alt text-success me-2"></i> {item.days} days
+                      <i className="fa fa-calendar-alt text-success me-2"></i>{" "}
+                      {item.days} days
                     </small>
                     <small className="flex-fill text-center border-end py-2">
-                      <i className="fa fa-user text-success me-2"></i> {item.no_persons} Person
+                      <i className="fa fa-user text-success me-2"></i>{" "}
+                      {item.no_persons} Person
                     </small>
                   </div>
                   <div className="text-center p-4">
@@ -189,9 +212,7 @@ const Destination = () => {
                       <small className="fa fa-star text-success"></small>
                       <small className="fa fa-star text-success"></small>
                     </div>
-                    <p>
-                      {item.description}
-                    </p>
+                    <p>{item.description}</p>
                     <div className="d-flex justify-content-center mb-2">
                       <a
                         href=""
@@ -250,7 +271,7 @@ const Destination = () => {
                       <div className="form-floating">
                         <input
                           type="text"
-                          className="form-control bg-transparent"
+                          className="form-control bg-transparent text-white"
                           id="name"
                           placeholder="Your Name"
                         />
@@ -264,7 +285,7 @@ const Destination = () => {
                       <div className="form-floating">
                         <input
                           type="email"
-                          className="form-control bg-transparent"
+                          className="form-control bg-transparent text-white"
                           id="email"
                           placeholder="Your Email"
                         />
@@ -276,31 +297,17 @@ const Destination = () => {
                     </div>
 
                     {/* <div className="col-md-6">
-                      <div className="form-floating" id="date3">
-                        <input
-                          type="datetime-local"
-                          className="form-control bg-transparent text-white"
-                          id="datetime"
-                        />
-                        <label htmlFor="datetime" className="text-white">
-                          {" "}
-                          Date & Time
-                        </label>
-                      </div>
-                    </div> */}
-
-                    <div className="col-md-6">
                       <div className="form-floating">
                         <select
                           name=""
-                          id="select1"
-                          className="form-select bg-transparent"
+                          id="selectdestination"
+                          className="form-select bg-transparent text-white"
                         >
-                          <option value="1">Bali</option>
-                          <option value="2">Maldives</option>
-                          <option value="3">Bangkok</option>
+                          <option value="1" className="text-dark">Bali</option>
+                          <option value="2" className="text-dark">Maldives</option>
+                          <option value="3" className="text-dark">Bangkok</option>
                         </select>
-                        <label htmlFor="select1" className="text-white">
+                        <label htmlFor="selectdestination" className="text-white">
                           Destination
                         </label>
                       </div>
@@ -310,7 +317,7 @@ const Destination = () => {
                       <div className="form-floating">
                         <input
                           type="text"
-                          className="form-control bg-transparent white-text"
+                          className="form-control bg-transparent text-white"
                           id="price"
                           placeholder="Price"
                         />
@@ -319,12 +326,57 @@ const Destination = () => {
                           Price
                         </label>
                       </div>
+                    </div> */}
+
+                    <div className="col-md-6">
+                      <div className="form-floating">
+                        <select
+                          name=""
+                          id="selectdestination"
+                          className="form-select bg-transparent text-white"
+                          value={selectedDestination}
+                          onChange={handleDestinationChange}
+                        >
+                          <option value="">Select a destination</option>
+                          <option value="Bali" className="text-dark">
+                            Bali
+                          </option>
+                          <option value="Maldives" className="text-dark">
+                            Maldives
+                          </option>
+                          <option value="Bangkok" className="text-dark">
+                            Bangkok
+                          </option>
+                        </select>
+                        <label
+                          htmlFor="selectdestination"
+                          className="text-white"
+                        >
+                          Destination
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="col-md-6">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control bg-transparent text-white"
+                          id="price"
+                          placeholder="Price"
+                          value={price}
+                          readOnly
+                        />
+                        <label htmlFor="price" className="text-white">
+                          Price
+                        </label>
+                      </div>
                     </div>
 
                     <div className="col-12">
                       <div className="form-floating">
                         <textarea
-                          className="form-control bg-transparent"
+                          className="form-control bg-transparent text-white"
                           placeholder="Special Request"
                           id="message"
                           style={{ height: "100px" }}
@@ -339,6 +391,7 @@ const Destination = () => {
                       <button
                         className="btn btn-outline-light w-100 py-3"
                         type="submit"
+                        onClick={() => navigateTo(selectedDestination, price)}
                       >
                         Book Now
                       </button>

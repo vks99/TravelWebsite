@@ -100,11 +100,8 @@ app.get("/history", async(req,res)=>{
 })
 
 
-app.get("/test",auth, (req,res)=>{
-    console.log(req.cookies);
-	res.send(`<p>hello</p>`);
-	});
 
+//route to set signup inframation to db 
 app.post("/register", async (req, res) => {
 	try {
 	  // Get user input
@@ -160,7 +157,7 @@ app.post("/register", async (req, res) => {
 	  console.log(err);
 	}
   });
-  
+//route to set login inframation to db 
  app.post("/login", async (req, res) => {
 	try {
 	  // Get user input
