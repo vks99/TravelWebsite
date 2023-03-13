@@ -1,16 +1,28 @@
 import { NavLink } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Carousel from 'react-bootstrap/Carousel';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 type order = {
-    Destination: string;
-    Price:string;
-    Departure:string;
-    Date:string;
+    lastname: string;
+    destinationName: string;
+    destinationPrice:string;
+    country:string;
 }
 
 const History=()=>{
-    
+    const [posts, setPosts] = useState<order[]>([]);
+    useEffect(() => {
+      axios.get('http://localhost:8000/history')
+        .then(res => {
+          setPosts(res.data)
+          console.log(posts);
+        }
+        )
+        .catch(err => console.log(err));
+    }, []);
+
     return (
 
         <div className="container">
@@ -39,27 +51,22 @@ const History=()=>{
           <thead>
             <tr>
               <th>#</th>
+              <th>Order Name:</th>
               <th>Destination:</th>
               <th>Departure:</th>
-              <th>Date:</th>
               <th>Price:</th>
             </tr>
           </thead>
           <tbody>
+          {posts.map((post, index) => (
             <tr>
-              <td>1</td>
-              <td>Toronto</td>
-              <td>New York</td>
-              <td>2023/01/02</td>
-              <td>$300</td>
+              <td>{index +1}</td>
+              <td>{post.lastname}</td>
+              <td>{post.destinationName}</td>
+              <td>{post.country}</td>
+              <td>{post.destinationPrice}</td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Toronto</td>
-              <td>Ottawa</td>
-              <td>2023/01/03</td>
-              <td>$200</td>
-            </tr>
+             ))}
           </tbody>
         </Table>
         </div>

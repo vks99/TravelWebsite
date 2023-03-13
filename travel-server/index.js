@@ -87,6 +87,17 @@ app.get("/blogs", async(req,res)=>{
 		res.status(500).json({ message: 'Server Error' });
 	  }
 })
+app.get("/history", async(req,res)=>{
+	try {
+		const posts = await payment.find();
+		console.log(posts);
+		res.json(posts);
+		
+	  } catch (err) {
+		console.log(err);
+		res.status(500).json({ message: 'Server Error' });
+	  }
+})
 
 
 app.get("/test",auth, (req,res)=>{
