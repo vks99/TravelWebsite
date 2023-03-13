@@ -27,6 +27,7 @@ const Payment=()=>{
 
     const data = location.state;
     // const [payment, setPayment] = useState<paymentProps[]>([]);
+    //declaring array for state variable
     const [payment, setPayment]=useState({
         firstname: "",
         lastname: "", 
