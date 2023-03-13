@@ -22,10 +22,6 @@ import React, { useState, useEffect } from "react";
 
 
 const Payment=()=>{
-    
-    
-    // const data = location.state?.test;
-    //  console.log(data);
     const location = useLocation();
     console.log(location.state);
 
@@ -56,9 +52,8 @@ const Payment=()=>{
     const [validate, setValidate] = useState(false);
     let checkvalidate = false;
     
-
-    
     const sendPaymentRequest = async (e: React.FormEvent<HTMLFormElement>) => {
+        //Include the destination name and price to payment
         setPayment((prevPayment) => ({
             ...prevPayment,
             destinationName: data.name,
@@ -82,7 +77,7 @@ const Payment=()=>{
                     checkvalidate=true;
                 }
             if(checkvalidate === false){
-                
+                //post method to send the payment details
                 const response =  axios.post(
                     'http://localhost:8000/Payment', payment
                    ).then((res) => {
@@ -98,11 +93,9 @@ const Payment=()=>{
                     console.log(res.data);
                 })
                 console.log(payment);
-                console.log(validate);
-                
-            }
-           
-    }
+                console.log(validate);   
+            }        
+        }
         catch (err){
             console.log(err);
         }
@@ -112,33 +105,33 @@ const Payment=()=>{
         setPayment({...payment, [e.target.name]: e.target.value});
     }
     return(
-
         <div className="container mt-3">
+            {/* card for fetching the destination package name and price */}
             <div className="row">
                 <div className="col-md-8">
-                <div className='card bg-gray'>
-            <div className="card-header">
-                   <h3>Destination Details</h3>         
-                 </div>
-                <div className='row mt-3'>
-                <div className="col-md-6 ml-2">
-                                <div className="form-group">
-                                    <input type="text" name="destination" placeholder={data.name} className='form-control ' disabled/>
+                    <div className='card bg-gray'>
+                        <div className="card-header">
+                            <h3>Destination Details</h3>         
+                        </div>
+                                <div className='row mt-3'>
+                                    <div className="col-md-6 ml-2">
+                                        <div className="form-group">
+                                            <input type="text" name="destination" placeholder={data.name} className='form-control ' disabled/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5 mr-2">
+                                        <div className="form-group">
+                                            <input type="number" name="amount" placeholder={data.price} className='form-control' disabled/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-md-5 mr-2">
-                                <div className="form-group">
-                                    <input type="number" name="amount" placeholder={data.price} className='form-control' disabled/>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-                </div>
-            </div>
-            
-            <form onSubmit={sendPaymentRequest}>
+            {/* form to take the payment details */}
+        <form onSubmit={sendPaymentRequest}>
            <div className="row">
-            <div className="col-md-7 py-4">
+             <div className="col-md-7 py-4">
                 <div className="card">
                     <div className="card-header">
                         <h4>Personal Information</h4>
@@ -146,45 +139,37 @@ const Payment=()=>{
                     <div className="card-body">
                         <div className="row">
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">                                    
                                     <input type="text" name="firstname" placeholder='First Name' className='form-control'  onChange={handleChange} required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">  
                                     <input type="text" name="lastname" placeholder='Last Name' className='form-control' onChange={handleChange}  required />
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">   
                                     <input type="text" name="country" placeholder='Country' className='form-control' onChange={handleChange}  required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group"> 
                                     <input type="text" name="city" placeholder='City' className='form-control' onChange={handleChange} required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">     
                                     <input type="text" name="zipcode" placeholder='Zip Code' className='form-control' onChange={handleChange}  required/>
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">    
                                     <input type="email" name="email" placeholder='Email' className='form-control'  onChange={handleChange} required/>
-
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group">
-                                    
                                     <input type="string" name="phone" placeholder='Phone Number' className='form-control' onChange={handleChange} required/>
                                     {phoneError && <p style={{color:'red'}}>{phoneError}</p>}
                                 </div>
