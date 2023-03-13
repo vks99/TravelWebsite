@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Carousel from 'react-bootstrap/Carousel';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+//set history form
 type order = {
     lastname: string;
     destinationName: string;
@@ -13,6 +13,7 @@ type order = {
 
 const History=()=>{
     const [posts, setPosts] = useState<order[]>([]);
+    //connect to serverside API to get histroy data
     useEffect(() => {
       axios.get('http://localhost:8000/history')
         .then(res => {
@@ -22,7 +23,7 @@ const History=()=>{
         )
         .catch(err => console.log(err));
     }, []);
-
+    // show the history
     return (
 
         <div className="container">
