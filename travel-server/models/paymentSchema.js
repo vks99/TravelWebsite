@@ -13,7 +13,10 @@ paymentSchema = new Schema ({
     cardname: String,
     cardnumber: Number,
     monthYear: String,
-    cvv: Number
+    cvv: Number,
+    destinationName:String,
+    // destinations: { type: Schema.Types.Mixed }
+    destinationPrice:Number
 });
 
 module.exports = mongoose.model('payment', paymentSchema);
