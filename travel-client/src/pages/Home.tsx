@@ -3,22 +3,25 @@ import { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios';
 
-
+//declaring props for feedback
 type Props = {
     name : string;
     email: string;
     feedback: string;
 }
+//declaring props for destinations name and description
 type destProps = {
     name: string;
     description: string;
 }
+//declaring props for travel guide titles
 type guideProps = {
     name: string;
 }
 
 
 const Home=()=>{
+    //creating state variables
     const [feed, setFeed] = useState(false);
     const [feedback, setFeedback] = useState<Props[]>([]);
     const [dest, setdest] = useState<destProps[]>([]);
