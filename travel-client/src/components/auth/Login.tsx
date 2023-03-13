@@ -4,7 +4,11 @@ import axios from 'axios';
 import decode from 'jwt-decode';
 import AuthContext, { AuthContextType } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
- 
+type LoginForm = {
+	password:String,
+	email:String,
+}
+
 const Login=()=>{
   //set Authcontext
     const auth = useContext(AuthContext) as AuthContextType;
@@ -48,8 +52,7 @@ const Login=()=>{
         //take token from serverside
         localStorage.setItem('token', response.data.token);
         auth.login();
-        //redirect to destination
-        navigate('/Destination');
+        navigate('/');
       } catch (err: any) {
         console.log(err);
        

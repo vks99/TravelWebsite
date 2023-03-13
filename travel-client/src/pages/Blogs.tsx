@@ -5,22 +5,28 @@ import { post } from 'jquery';
 import BlogPost from '../components/BlogPost';
 import '../App.css';
 
+//Importing the blogpost component
 import blogPost from '../types/blogPost';
 
+//Creating a Blog function
 const Blogs=()=>{
 
     const [posts, setPosts] = useState<blogPost[]>([]);
-
+    //Using the useEffect which will be called only once and provides the data to the webpage
     useEffect(() => {
+      //using axios for API
         axios.get('http://localhost:8000/blogs')
           .then(res => {
+            //storing the API result payload in the setPosts.
             setPosts(res.data)
             console.log(posts);
           }
           )
+          //Storing the error and displying it in the console
           .catch(err => console.log(err));
       }, []);
 
+      //returing the HTML code for rendering the web page.
     return(
         <div className="blogpost">
         <div className='container'>
@@ -50,4 +56,5 @@ const Blogs=()=>{
     )
 }
 
+//Exporting the Blogs and using it in the App.
 export default Blogs;
