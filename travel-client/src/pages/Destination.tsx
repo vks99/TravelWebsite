@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
+// declaring type for package state variable
 interface getType {
   days: number;
   description: string;
@@ -13,7 +14,10 @@ interface getType {
   _id: string;
 }
 
+// creating Destination page function/component
 const Destination = () => {
+
+  // creating state variables
   const [packages, setPackages] = useState<getType[]>([]);
   const [imgurl, setImageurl] = useState([
     "/images/Destination/destinationindia.jpg",
@@ -23,6 +27,9 @@ const Destination = () => {
     "/images/Destination/destinationLondon.jpg",
     "/images/Destination/destinationAustralia.jpg",
   ]);
+  // state variables for online desitnation booking dropdown
+  const [selectedDestination, setSelectedDestination] = useState("");
+  const [price, setPrice] = useState(0);
 
   //   to navigate when clicked on button
   const navigate = useNavigate();
@@ -32,9 +39,7 @@ const Destination = () => {
     navigate("/Payment", { state: { name: name, price: price } });
   };
 
-  const [selectedDestination, setSelectedDestination] = useState("");
-  const [price, setPrice] = useState(0);
-
+   // creating function to update price based on selected destination dropdown 
   function handleDestinationChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedValue = event.target.value;
     console.log(selectedValue);
@@ -58,6 +63,7 @@ const Destination = () => {
     setPrice(newPrice);
   }
 
+  // useEffect for calling api
   useEffect(() => {
     axios
       .get("http://localhost:8000/packages")
@@ -296,38 +302,6 @@ const Destination = () => {
                       </div>
                     </div>
 
-                    {/* <div className="col-md-6">
-                      <div className="form-floating">
-                        <select
-                          name=""
-                          id="selectdestination"
-                          className="form-select bg-transparent text-white"
-                        >
-                          <option value="1" className="text-dark">Bali</option>
-                          <option value="2" className="text-dark">Maldives</option>
-                          <option value="3" className="text-dark">Bangkok</option>
-                        </select>
-                        <label htmlFor="selectdestination" className="text-white">
-                          Destination
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="col-md-6">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          className="form-control bg-transparent text-white"
-                          id="price"
-                          placeholder="Price"
-                        />
-                        <label htmlFor="price" className="text-white">
-                        {" "}
-                          Price
-                        </label>
-                      </div>
-                    </div> */}
-
                     <div className="col-md-6">
                       <div className="form-floating">
                         <select
@@ -407,4 +381,5 @@ const Destination = () => {
   );
 };
 
+// exporting the component
 export default Destination;

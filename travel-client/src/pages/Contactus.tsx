@@ -1,9 +1,11 @@
+// Importing required libaries
 import { NavLink } from 'react-router-dom';
 import '../App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Alert } from "reactstrap";
 
+// declaring type for formdata state variable
 type PostType = {
     fullName: string;
     email: string;
@@ -11,14 +13,19 @@ type PostType = {
     message: string;
 };
 
+// creating contact us function/component
 const Contactus=()=>{
 
+    // creating state variables
     const [formData, setFormData] = useState<PostType[]>([]);
     const [successMessage, setSuccessMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
+    // creating function for submit button
     const onSubmit=async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+
+        // calling api after cliking submit button
         const response = await axios.post(
             'http://localhost:8000/contactus',formData
         )
@@ -39,10 +46,12 @@ const Contactus=()=>{
         });
     }
 
+    // creating function for any changes in form fields
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // creating function for any changes in textarea field
     const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -98,7 +107,7 @@ const Contactus=()=>{
                             </div>
                             <Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
                                 {successMessage}
-                            </Alert>
+                            </Alert> 
                         </form>
                     </div>
                 </div>
@@ -108,4 +117,5 @@ const Contactus=()=>{
     )
 }
 
+// exporting the component
 export default Contactus;
