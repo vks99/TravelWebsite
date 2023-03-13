@@ -51,36 +51,46 @@ const Payment=()=>{
     const [isOpen, setIsOpen] = useState(false);
     const [validate, setValidate] = useState(false);
     let checkvalidate = false;
+    useEffect(() => {
+        if(data){
+            setPayment(prevPayment => ({
+                ...prevPayment,
+                destinationName: data.name,
+                destinationPrice: data.price
+            }));
+        }
+    }, [data]);
     
     const sendPaymentRequest = async (e: React.FormEvent<HTMLFormElement>) => {
-        //Include the destination name and price to payment
-        setPayment((prevPayment) => ({
-            ...prevPayment,
-            destinationName: data.name,
-            destinationPrice: data.price
-          }));
         e.preventDefault();
         try{
             console.log(payment);
             
-                if(!(payment.phone.length === 10) ) {
-                    console.log('entered if loop')
-                    setPhoneError("Please enter a valid 10 digit phone number");
-                    checkvalidate=true;
-                }
-                if(!(cardnumber.toString().length === 16) ) {
-                    setCardError("Please enter a valid 16 digit card number");
-                    checkvalidate=true;
-                }
-                if(!(cvv.toString().length === 3) ) {
-                    setCVVError("Please enter a valid 3 digit CVV");
-                    checkvalidate=true;
-                }
-            if(checkvalidate === false){
+            if(!(payment.phone.length === 10) ) {
+                console.log('entered if loop')
+                setPhoneError("Please enter a valid 10 digit phone number");
+                checkvalidate=true;
+            }
+            if(!(cardnumber.toString().length === 16) ) {
+                setCardError("Please enter a valid 16 digit card number");
+                checkvalidate=true;
+            }
+            if(!(cvv.toString().length === 3) ) {
+                setCVVError("Please enter a valid 3 digit CVV");
+                checkvalidate=true;
+            }
+    
+            if(!checkvalidate){
+                //Include the destination name and price to payment
+                setPayment((prevPayment) => ({
+                    ...prevPayment,
+                    destinationName: data.name,
+                    destinationPrice: data.price
+                }));
                 //post method to send the payment details
                 const response =  axios.post(
                     'http://localhost:8000/Payment', payment
-                   ).then((res) => {
+                ).then((res) => {
                     if(res.data===true)
                     {
                         setSuccessMessage("Payment Done successfully!");
@@ -93,8 +103,8 @@ const Payment=()=>{
                     console.log(res.data);
                 })
                 console.log(payment);
-                console.log(validate);   
-            }        
+                console.log(validate);
+            }
         }
         catch (err){
             console.log(err);
