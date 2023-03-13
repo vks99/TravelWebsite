@@ -6,16 +6,10 @@ import { Alert } from "reactstrap";
 import decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import AuthContext, { AuthContextType } from '../../context/AuthContext';
-type RegisterForm = {
-	name : String,
-	phone : String,
-	email : String,
-	password:String,
-	address:String,
-	user_name:String,
-  }
+
 
 const Signup=()=>{
+	//set AuthContext
 	const auth = useContext(AuthContext) as AuthContextType;
   const navigate = useNavigate();
   const [formData2, setFormData] = useState({
@@ -34,7 +28,7 @@ const Signup=()=>{
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  //set submit form
     let config = {
       headers: {
         'Content-Type': 'application/json',
@@ -49,14 +43,14 @@ const Signup=()=>{
 	  phone:phone,
     };
     try {
+	//connect to serverside API 
       const response = await axios.post(
         'http://localhost:8000/register',
         data,
         config
       );
+	//save token and redirect to destination page
       localStorage.setItem('token', response.data.token);
-      //let decodeddata = decode(response.data.token);
-      //console.log(decodeddata);
       auth.login();
       navigate('/Destination');
     } catch (e: any) {

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Alert } from "reactstrap";
 import {useLocation} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
 // type paymentProps = {
 //     firstname: string;
@@ -16,18 +16,17 @@ import {useLocation} from 'react-router-dom';
 //     cardnumber: number;
 //     monthYear: string;
 //     cvv: number;
+//     destinationName:string,
+//     destinationPrice:number
 // }
 
 
 const Payment=()=>{
-    
-    
-    // const data = location.state?.test;
-    //  console.log(data);
     const location = useLocation();
     console.log(location.state);
 
     const data = location.state;
+    // const [payment, setPayment] = useState<paymentProps[]>([]);
     const [payment, setPayment]=useState({
         firstname: "",
         lastname: "", 
@@ -39,7 +38,10 @@ const Payment=()=>{
         cardname: "",
         cardnumber: "",
         monthYear: "",
-        cvv: ""
+        cvv: "",
+        destinationName:"",
+        destinationPrice:""
+
     });
     const { firstname, lastname , country, city, zipcode, email, phone, cardname, cardnumber, monthYear, cvv} = payment;
     const [phoneError, setPhoneError] = useState('');
@@ -49,13 +51,19 @@ const Payment=()=>{
     const [isOpen, setIsOpen] = useState(false);
     const [validate, setValidate] = useState(false);
     let checkvalidate = false;
-
+    
     const sendPaymentRequest = async (e: React.FormEvent<HTMLFormElement>) => {
+        //Include the destination name and price to payment
+        setPayment((prevPayment) => ({
+            ...prevPayment,
+            destinationName: data.name,
+            destinationPrice: data.price
+          }));
         e.preventDefault();
         try{
             console.log(payment);
             
-                if(!(phone.length === 10) ) {
+                if(!(payment.phone.length === 10) ) {
                     console.log('entered if loop')
                     setPhoneError("Please enter a valid 10 digit phone number");
                     checkvalidate=true;
@@ -69,8 +77,8 @@ const Payment=()=>{
                     checkvalidate=true;
                 }
             if(checkvalidate === false){
-                console.log(validate);
-                const response = await axios.post(
+                //post method to send the payment details
+                const response =  axios.post(
                     'http://localhost:8000/Payment', payment
                    ).then((res) => {
                     if(res.data===true)
@@ -84,23 +92,46 @@ const Payment=()=>{
                     }
                     console.log(res.data);
                 })
-            }
-           
-    }
+                console.log(payment);
+                console.log(validate);   
+            }        
+        }
         catch (err){
             console.log(err);
         }
-    
     };
+
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setPayment({...payment, [e.target.name]: e.target.value});
     }
     return(
-
-        <div className="container">
-            <form onSubmit={sendPaymentRequest}>
+        <div className="container mt-3">
+            {/* card for fetching the destination package name and price */}
+            <div className="row">
+                <div className="col-md-8">
+                    <div className='card bg-gray'>
+                        <div className="card-header">
+                            <h3>Destination Details</h3>         
+                        </div>
+                                <div className='row mt-3'>
+                                    <div className="col-md-6 ml-2">
+                                        <div className="form-group">
+                                            <input type="text" name="destination" placeholder={data.name} className='form-control ' disabled/>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5 mr-2">
+                                        <div className="form-group">
+                                            <input type="number" name="amount" placeholder={data.price} className='form-control' disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            {/* form to take the payment details */}
+        <form onSubmit={sendPaymentRequest}>
            <div className="row">
-            <div className="col-md-7 py-4">
+             <div className="col-md-7 py-4">
                 <div className="card">
                     <div className="card-header">
                         <h4>Personal Information</h4>
@@ -108,45 +139,37 @@ const Payment=()=>{
                     <div className="card-body">
                         <div className="row">
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">                                    
                                     <input type="text" name="firstname" placeholder='First Name' className='form-control'  onChange={handleChange} required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">  
                                     <input type="text" name="lastname" placeholder='Last Name' className='form-control' onChange={handleChange}  required />
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">   
                                     <input type="text" name="country" placeholder='Country' className='form-control' onChange={handleChange}  required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group"> 
                                     <input type="text" name="city" placeholder='City' className='form-control' onChange={handleChange} required/>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">     
                                     <input type="text" name="zipcode" placeholder='Zip Code' className='form-control' onChange={handleChange}  required/>
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="form-group">
-                                    
+                                <div className="form-group">    
                                     <input type="email" name="email" placeholder='Email' className='form-control'  onChange={handleChange} required/>
-
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="form-group">
-                                    
                                     <input type="string" name="phone" placeholder='Phone Number' className='form-control' onChange={handleChange} required/>
                                     {phoneError && <p style={{color:'red'}}>{phoneError}</p>}
                                 </div>
@@ -194,7 +217,7 @@ const Payment=()=>{
            </div>
            <div className="row">
                 <div className='col-md-12 d-flex justify-content-center'>
-                    <button  type="submit" className='btn btn-primary btn-lg px-5 my-5'>Pay</button>
+                    <button  type="submit" className='btn btn-primary btn-lg px-5 my-4'>Pay</button>
                 </div> 
                 <Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
                 {successMessage}
@@ -202,10 +225,10 @@ const Payment=()=>{
            </div>
           
            </form> 
-           <div>
+           {/* <div>
                 <h1>{data.name}</h1>
                 <p>ID: {data.price}</p>
-            </div>
+            </div> */}
         </div>
     )
 }

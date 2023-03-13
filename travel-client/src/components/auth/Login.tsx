@@ -10,13 +10,14 @@ type LoginForm = {
 }
 
 const Login=()=>{
+  //set Authcontext
     const auth = useContext(AuthContext) as AuthContextType;
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
       email: '',
       password: '',
     });
-  
+  //set submit form
     const { email, password } = formData;
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,6 +41,7 @@ const Login=()=>{
       };
 
       try {
+        //connect to serverside API
         const response = await axios.post(
             'http://localhost:8000/login',
           data,
@@ -47,6 +49,7 @@ const Login=()=>{
         );
         console.log(response.data);
         console.log(response.data.token)
+        //take token from serverside
         localStorage.setItem('token', response.data.token);
         auth.login();
         navigate('/');

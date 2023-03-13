@@ -23,17 +23,20 @@ const Home=()=>{
     const [feedback, setFeedback] = useState<Props[]>([]);
     const [dest, setdest] = useState<destProps[]>([]);
     const [travelguide, setTravelGuide] = useState<guideProps[]>([]);
+    //Images of destinations
     const [imgurl,setImageurl] = useState([
         "/images/Home/image1.jpeg",
         "/images/Home/image2.jpeg",
         "/images/Home/image3.jpeg"
     ]);
+    //Images of travelguides
     const [guideimgurl,setGuideImageurl] = useState([
         "/images/Home/sarada_img.jpg",
         "/images/Home/vikas_image1.jpg",
         "/images/Home/sethu_madhav_image1.jpg",
         "/images/Home/suzhang.jpeg"
     ]);
+    //post method to send feedback details
     const sendFeedPostRequest = async () => {
         try{
            const response = await axios.post(
@@ -45,7 +48,7 @@ const Home=()=>{
             console.log(err);
         }
     };
-
+    //get methods to fetch the destination details and travelguides information from database
     useEffect(() => {
     axios
       .get("http://localhost:8000/home_destinations")
@@ -111,7 +114,7 @@ const Home=()=>{
             </Carousel.Caption>
             </Carousel.Item>
             </Carousel>
-
+        {/* Destination details */}
         <div className='row text-center mt-5'>
             <h2>Popular Destinations</h2>
         </div>
@@ -131,7 +134,7 @@ const Home=()=>{
                 ))};
             </div> 
         </div>
-
+        {/* travelguides information */}
         <div className="row mx-5 g-3">
             <div className='header-travelguide'>
                     <h2>Travel Guides</h2>
@@ -147,14 +150,14 @@ const Home=()=>{
                 </div>
                 ))};
         </div>
-
+        {/* Form for customer feedback */}
         <div className='container'>
                 <div className="row mt-5">
                      <h3 className='d-flex justify-content-center'>If you are a savvy traveler, there is nothing better than sharing your personal experience.</h3><br/>
                 </div>
                   <div className="d-flex justify-content-center mb-5">
                     {!feed && ( <button className='btn btn-danger d-flex justify-content-center' onClick={() => setFeed((value) => !value)}> Provide Feedback</button>)}
-                </div>
+                  </div>
                     <div className='feedback d-flex justify-content-center'>
                         {feed && (
                         <form onSubmit={sendFeedPostRequest}>                           
@@ -171,12 +174,9 @@ const Home=()=>{
                                 <button className='btn btn-danger mb-5' onClick={() => setFeed((value) => !value)}>Close</button>
                         </form>
                         )}
-                    </div>
-                          
+                    </div>           
         </div>
-     </div> 
-        
-        
+     </div>    
     )
 }
 
