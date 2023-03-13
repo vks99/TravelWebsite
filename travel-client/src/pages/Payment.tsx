@@ -1,32 +1,13 @@
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Alert } from "reactstrap";
 import {useLocation} from 'react-router-dom';
 import React, { useState, useEffect } from "react";
-
-// type paymentProps = {
-//     firstname: string;
-//     lastname: string;
-//     country:string;
-//     city: string;
-//     zipcode: string;
-//     email: string;
-//     phone: string;
-//     cardname: string;
-//     cardnumber: number;
-//     monthYear: string;
-//     cvv: number;
-//     destinationName:string,
-//     destinationPrice:number
-// }
-
 
 const Payment=()=>{
     const location = useLocation();
     console.log(location.state);
 
     const data = location.state;
-    // const [payment, setPayment] = useState<paymentProps[]>([]);
     //declaring array for state variable
     const [payment, setPayment]=useState({
         firstname: "",
@@ -44,7 +25,7 @@ const Payment=()=>{
         destinationPrice:""
 
     });
-    const { firstname, lastname , country, city, zipcode, email, phone, cardname, cardnumber, monthYear, cvv} = payment;
+    const {  cardnumber,  cvv} = payment;
     const [phoneError, setPhoneError] = useState('');
     const [cardError, setCardError] = useState('');
     const [cvvError, setCVVError] = useState('');
