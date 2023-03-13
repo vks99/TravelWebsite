@@ -5,31 +5,38 @@ import { redirect } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 //import { useHistory } from "react-router-dom";
 
+//Creating blogpost Type
 type blogPost = {
   title: String,
   author: String,
   content: String,
 }
 
-
+//BlogForm function
 const BlogForm = () => {
 
+
+  //Using the use state for the initializing the blog post.
   const [blogData, setBlogData] = useState<blogPost[]>([]);
+  //using the use state for setting the success message
   const [successMessage, setSuccessMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   //const history = useHistory();
 
+  //Using the handle submit function as async
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    //logging the blog data into the console
     console.log(blogData);
+    //using await for getting the repsonse through the API and storing in the blogData
     const response = await axios.post(
       'http://localhost:8000/blogForm',blogData
   )
+  //Error handling for the blog data
   .then((res) => {
       if(res.data===true)
       {
         console.log(res.data);
-        //history.push('/new-page');
       }
       else{
         console.log("Unable to submit the blog data");
@@ -37,22 +44,29 @@ const BlogForm = () => {
       console.log(res.data);
   })
   .catch((error) => {
+      //Displaying the error on the console.
       console.error(error);
   });
 
   };
 
+  //Using handleChange for capturing the HTML input element data
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      //Using the setBlogData for holding the blogData
       setBlogData({ ...blogData, [e.target.name]: e.target.value });
     }
 
+  //using HandleChangeTextArea for holding the text area data into the blogData.
   const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBlogData({ ...blogData, [e.target.name]: e.target.value });
 };
 
+//Returing the HTML to render webpage on the browser
+//Using Carousel for the scroling
+//Using the Handle submit we are submitting the form and handleSubmit will capture the data.
   return (
     <div className="container">
-      <div className = "blog_images">
+      <div className = "blog_images"> 
       <Carousel className='my-1'>
             <Carousel.Item>
                 <img
@@ -108,4 +122,5 @@ const BlogForm = () => {
   );
 };
 
+//Exporting the BlogForm component to use it in the App
 export default BlogForm;
