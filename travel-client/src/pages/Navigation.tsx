@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import AuthContext, { AuthContextType } from '../context/AuthContext';
 
 const Navigation=()=>{
+  //set authcontext
     const auth = useContext(AuthContext) as AuthContextType;
     return(
         
@@ -15,7 +16,7 @@ const Navigation=()=>{
                     <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/Contactus">Contactus</Nav.Link>
-                   
+                
                 {auth.isLoggedIn ? (
                <><Nav.Link href="/Destination">Destination</Nav.Link><Nav.Link href="/Blogs">Blogs</Nav.Link><Nav.Link href="/BlogForm">BlogForm</Nav.Link><Nav.Link href="/History">History</Nav.Link><button onClick={auth.logout}>Logout</button></>
               
