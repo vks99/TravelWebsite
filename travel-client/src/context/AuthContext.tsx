@@ -11,6 +11,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     const savedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log(savedIsLoggedIn);
     return savedIsLoggedIn ? savedIsLoggedIn === 'true' : false;
   });
 

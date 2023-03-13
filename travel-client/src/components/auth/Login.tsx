@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 type LoginForm = {
 	password:String,
 	email:String,
-  }
+}
 
 const Login=()=>{
     const auth = useContext(AuthContext) as AuthContextType;
@@ -49,7 +49,7 @@ const Login=()=>{
         console.log(response.data.token)
         localStorage.setItem('token', response.data.token);
         auth.login();
-        navigate('/Destination');
+        navigate('/');
       } catch (err: any) {
         console.log(err);
        
