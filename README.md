@@ -11,11 +11,27 @@ To provide the best travel experience for all the travel enthusiasts by providin
 * For any issues and enquiries customer can contact through the website.
 
 ## Project Features:
-*	Home - Sarada Maddipatla
-*	Login/Sign Up - Su zhang
-*	Destination Details - Vikas Uppala
-*	Payments - Sarada Maddipatla
-*	History - su zhang
-*	Blogs - Sethu Madhava Naidu Lankipalli
-*	Blog Forms - Sethu Madhava Naidu Lankipalli
-*	Contact Us - Vikas Uppala
+*	Home 
+*	Login/Sign Up
+*	Destination Details 
+*	Payments 
+*	History
+*	Blogs 
+*	Blog Forms 
+*	Contact Us 
+
+## Sarada Maddipatla
+ * Home Page
+ * Payments page
+ 
+## Vikas Uppala
+ * Destinations Page
+ * Contact Us page
+ 
+## Su Zhang
+ * Login/SignUp
+ * History
+ 
+## Sethu Madhava Naidu Lankipalli
+ * Bolgs page
+ * Blog Forms page
