@@ -2,15 +2,14 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import axios from 'axios';
-import { Alert } from "reactstrap";
-import decode from 'jwt-decode';
+
 import { useNavigate } from 'react-router-dom';
-import AuthContext, { AuthContextType } from '../../context/AuthContext';
+
 
 
 const Signup=()=>{
-	//set AuthContext
-	const auth = useContext(AuthContext) as AuthContextType;
+
+
   const navigate = useNavigate();
   const [formData2, setFormData] = useState({
     name: '',
@@ -51,7 +50,6 @@ const Signup=()=>{
       );
 	//save token and redirect to destination page
       localStorage.setItem('token', response.data.token);
-      auth.login();
       navigate('/Destination');
     } catch (e: any) {
       console.log('error ', e.message);
